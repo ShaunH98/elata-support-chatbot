@@ -2,7 +2,7 @@
 
 An AI support assistant for Enable Lifecare's **Elata® pressure care system** (E300 foam, E400/E500 hybrid, E600/E700 alternating air mattresses and pumps).
 
-Live URL: _add yours after deploying_
+Live URL:(https://elata-support-chatbot.vercel.app/)
 Repo: _add yours after pushing_
 
 ---
