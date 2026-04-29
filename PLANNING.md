@@ -1,6 +1,6 @@
 # Elata Support Chatbot — Planning Brief
 
-**Author:** [Your Name]  **Date:** 29 April 2026
+**Author:** Shaun  **Date:** 29 April 2026
 
 **Problem.** Clinicians and carers using Enable Lifecare's Elata® pressure care system run into routine support questions every day — alarm meanings, mode changes, setup, power outages, cleaning. Today those go through phone and email, which is slow during the day and unavailable overnight. The answers already exist in the Elata user manuals, brochures, and FAQs; they're just not searchable in the moment.
 
