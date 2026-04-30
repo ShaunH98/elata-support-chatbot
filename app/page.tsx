@@ -96,7 +96,9 @@ export default function ChatPage() {
         body: JSON.stringify({ messages: apiMessages }),
       });
 
-      if (!res.ok) {
+      // 429 (rate limit) comes back as a well-formed assistant message
+      // explaining the limit, so treat it as success rather than throwing.
+      if (!res.ok && res.status !== 429) {
         const data = await res.json().catch(() => ({}));
         throw new Error(data.error || `Request failed (${res.status})`);
       }
