@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 import { retrieve, formatContext } from "@/lib/retrieval";
 import { validateRecommendation, parseUserQuery } from "@/lib/validator";
+import { checkRateLimit, cleanup } from "@/lib/rateLimit";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
@@ -128,6 +129,22 @@ interface ChatMessage {
 
 export async function POST(req: NextRequest) {
   try {
+    // Rate limiting: 5 requests per minute per IP
+    cleanup(); // Clean up stale entries
+    const ip = req.ip ?? req.headers.get("x-forwarded-for") ?? "unknown";
+    if (!checkRateLimit(ip)) {
+      return NextResponse.json(
+        {
+          mode: "informational",
+          answer:
+            "You've reached the rate limit (5 questions per minute). Please wait a moment before trying again.",
+          sources: [],
+          notes: "",
+        },
+        { status: 429 },
+      );
+    }
+
     const { messages } = (await req.json()) as { messages: ChatMessage[] };
 
     if (!Array.isArray(messages) || messages.length === 0) {
